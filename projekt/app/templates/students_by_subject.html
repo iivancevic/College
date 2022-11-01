@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Students enrolled in {{ content.subject }}</h4> &nbsp;
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Failed</th>
+        <th scope="col">Enrolled</th>
+        <th scope="col">Passed</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for enrollment in content.enrolls %}
+        <tr>
+        {% if enrollment.status == 'failed' %}
+            <td>{{ enrollment.student }}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+
+        {% if enrollment.status == 'enrolled' %}
+            <td>
+                {{ enrollment.student }}
+                <a href="{%url 'pass_subject' subject_id=enrollment.predmet.id enrollment_id=enrollment.id %}" class="link-dark">Pass</a>
+                <a href="{%url 'fail_subject' subject_id=enrollment.predmet.id enrollment_id=enrollment.id %}" class="link-danger">Fail</a>
+            </td>
+        {% else %}
+            <td></td>
+        {% endif %}
+
+        {% if enrollment.status == 'passed' %}
+            <td>{{ enrollment.student }}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

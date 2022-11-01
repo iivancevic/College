@@ -1,0 +1,9 @@
+{% block create_subject %}
+<form method="post">
+    <table>
+        {{form.as_p}}
+    </table>
+    <input type="submit" value="Create a subject">
+    {% csrf_token %}
+</form>
+{% endblock %}

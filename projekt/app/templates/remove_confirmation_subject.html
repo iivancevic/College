@@ -1,0 +1,8 @@
+{% block remove_subject %}
+<form action="{% url 'remove_subject' subject_id=data.subject_id student_id=data.student_id %}" method="POST">
+    <p>Are you sure?</p>
+    {% csrf_token %}
+    <input type="submit" name="Yes" value="Yes">
+    <input type="submit" name="No" value="No">
+</form>
+{% endblock %}

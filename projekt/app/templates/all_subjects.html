@@ -1,0 +1,14 @@
+{% for subject in content.subjects %}
+    {{ subject }}: predmet polozilo studenata: redovnih 
+    {% for key, value in content.number_of_students_red.items %}
+        {% if key == subject %}
+            {{ value }}
+        {% endif %}
+    {% endfor %}
+    izvanrednih: 
+    {% for key, value in content.number_of_students_izv.items %}
+        {% if key == subject %}
+            {{ value }}
+        {% endif %}
+    {% endfor %} <br>
+{% endfor %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+Enrollment form for {{ content.student }}
+<br><br>
+
+{% if content.student.status == 'izv' %}
+    {% with ''|center:6 as range %}
+        {% for _ in range %}
+            {{ forloop.counter }} Semestar <br>
+            Enrolled subjects: <br>
+            <ul>
+            {% for subject in content.enrolled %}
+            {% if subject.predmet.sem_red == forloop.parentloop.counter %}
+            <li>
+                {{ subject.predmet }} <br>
+                Subject status: {{ subject.status }}
+                {% if subject.status == 'enrolled' %}
+                    <a href="{%url 'remove_confirmation_subject' subject_id=subject.id student_id=content.student.id %}" class="plus">Remove</a>
+                {% endif %}
+            </li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+
+            Not enrolled subjects: <br>
+            <ul>
+            {% for id, subject in content.not_enrolled.items %}
+                {% if subject.sem_red == forloop.parentloop.counter %}
+                <li>
+                    {{ subject }}
+                    <a href="{%url 'enroll_subject' subject_id=id student_id=content.student.id %}" class="plus">Enroll</a> 
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endfor %}
+
+    {% endwith %}
+
+{% else %}
+    {% with ''|center:8 as range %}
+    {% for _ in range %}    
+        {{ forloop.counter }} Semestar <br>
+        Enrolled subjects: <br>
+        <ul>
+        {% for subject in content.enrolled %}
+            {% if subject.predmet.sem_izv == forloop.parentloop.counter %}
+            <li>
+                {{ subject.predmet }} <br>
+                Subject status: {{ subject.status }}
+                {% if subject.status == 'enrolled' %}
+                    <a href="{%url 'remove_confirmation_subject' subject_id=subject.id student_id=content.student.id %}" class="plus">Remove</a>
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+
+        Not enrolled subjects: <br>
+        <ul>
+        {% for id, subject in content.not_enrolled.items %}
+            {% if subject.sem_izv == forloop.parentloop.counter %}
+            <li>
+                {{ subject }}
+                <a href="{%url 'enroll_subject' subject_id=id student_id=content.student.id %}" class="plus">Enroll</a> 
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    {% endwith %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Welcome {{ request.user.uloga }} {{ request.user }}</h3>
+
+{% if request.user.uloga|lower == 'student' %}
+    <a href="enrollment_form/{{ request.user.id }}"> Enrollment form </a> 
+{% endif %}
+{% endblock %}

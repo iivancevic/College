@@ -1,0 +1,7 @@
+{% block update_subject %}
+<form method="POST">
+    {{form.as_p}}
+    {% csrf_token %}
+    <input type="submit" value="Update">
+</form>
+{% endblock %}

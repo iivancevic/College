@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Professors: </h2>
+<a href="../create_user">Create professors</a><br><br>
+    {% for professor in content.professors %}
+        {{ professor.username }}
+        <br>
+        <a href="/professors/{{ professor.id }}/update_user">Update</a><br>
+        <a href="/professors/{{ professor.id }}/delete_confirmation_user">Delete</a><br>
+        <br>
+    {% endfor %}
+{% endblock %}

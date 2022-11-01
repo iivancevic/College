@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Subjects: </h2>
+&nbsp;
+{% if request.user.uloga|lower == 'admin' %}
+<a href="../create_subject">Create subject</a><br><br>
+    {% for subject in content.subjects %}
+        {{ subject.ime }} / Redovni semestar: {{ subject.sem_red }} / Izvanredni semestar: {{ subject.sem_izv }} / Nositelj: {{ subject.nositelj }}
+        <br>
+        <a href="{{ subject.get_absolute_url }}update_subject">Update</a><br>
+        <a href="{{ subject.get_absolute_url }}delete_confirmation">Delete</a><br>
+        <a href="{{ subject.id }}">List of students</a><br>
+        <br>
+    {% endfor %}
+
+{% elif request.user.uloga|lower == 'profesor' %}
+    <h5>Subjects by {{ request.user }}</h5>
+    {% for subject in content.subjects %}
+    {% if subject.nositelj|lower == 'prof' %}
+        {{ subject.ime }}
+        <a href="{{ subject.id }}">Students</a><br><br>
+    {% endif %}
+
+    {% endfor %}
+{% endif %}
+{% endblock %}
